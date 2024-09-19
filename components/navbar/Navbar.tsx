@@ -1,5 +1,4 @@
 import Link from "next/link";
-import React from "react";
 import { Switch } from "../ui/switch";
 import {
   HomeIcon,
@@ -10,7 +9,7 @@ import {
 
 function Navbar() {
   return (
-    <header className="fixed w-full h-14 top-0 backdrop-blur px-20">
+    <header className="sticky w-full h-14 top-0 backdrop-blur px-20">
       <div className="flex justify-between items-center h-full">
         <div>
           <Link href={"/"} className="font-bold text-xl">
