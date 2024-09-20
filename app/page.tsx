@@ -1,4 +1,5 @@
 import OverviewCard from "@/components/card/OverviewCard";
+import PortfolioChart from "@/components/chart/PortfolioChart";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -25,7 +26,9 @@ export default function Home() {
           <CardHeader>
             <CardTitle className="text-[22px]">Portfolio</CardTitle>
           </CardHeader>
-          <CardContent></CardContent>
+          <CardContent>
+            <PortfolioChart />
+          </CardContent>
         </Card>
         <Card className="col-span-4">
           <CardHeader>
