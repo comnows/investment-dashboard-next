@@ -38,8 +38,11 @@ export default function Home() {
           <CardContent></CardContent>
         </Card>
         <Card className="col-start-1 col-end-8 lg:col-end-9">
-          <CardHeader>
+          <CardHeader className="flex-row justify-between items-center">
             <CardTitle className="text-[22px]">Transactions</CardTitle>
+            <Button size={"sm"} className="!m-0">
+              + Transaction
+            </Button>
           </CardHeader>
           <CardContent></CardContent>
         </Card>
