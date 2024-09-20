@@ -22,7 +22,7 @@ export default function Home() {
           <p className="text-xs text-green-500">1.23%</p>
         </OverviewCard>
 
-        <Card className="col-span-8">
+        <Card className="col-start-1 col-span-8">
           <CardHeader>
             <CardTitle className="text-[22px]">Portfolio</CardTitle>
           </CardHeader>
@@ -30,35 +30,37 @@ export default function Home() {
             <PortfolioChart />
           </CardContent>
         </Card>
-        <Card className="col-span-4">
-          <CardHeader>
-            <CardTitle className="text-[22px]">Allocation</CardTitle>
-          </CardHeader>
-          <CardContent></CardContent>
-        </Card>
-
-        <Card className="col-span-8">
+        <Card className="col-start-1 col-span-8">
           <CardHeader>
             <CardTitle className="text-[22px]">Positions</CardTitle>
           </CardHeader>
           <CardContent></CardContent>
         </Card>
-        <Card className="col-span-4">
-          <CardHeader className="flex-row justify-between items-center">
-            <CardTitle className="text-[22px]">Watchlist</CardTitle>
-            <Button size={"sm"} className="!m-0">
-              + Watchlist
-            </Button>
-          </CardHeader>
-          <CardContent></CardContent>
-        </Card>
-
-        <Card className="col-span-8">
+        <Card className="col-start-1 col-span-8">
           <CardHeader>
             <CardTitle className="text-[22px]">Transactions</CardTitle>
           </CardHeader>
           <CardContent></CardContent>
         </Card>
+
+        <div className="row-start-2 col-start-9 col-end-13">
+          <Card className="">
+            <CardHeader>
+              <CardTitle className="text-[22px]">Allocation</CardTitle>
+            </CardHeader>
+            <CardContent></CardContent>
+          </Card>
+
+          <Card className="">
+            <CardHeader className="flex-row justify-between items-center">
+              <CardTitle className="text-[22px]">Watchlist</CardTitle>
+              <Button size={"sm"} className="!m-0">
+                + Watchlist
+              </Button>
+            </CardHeader>
+            <CardContent></CardContent>
+          </Card>
+        </div>
       </div>
     </main>
   );
