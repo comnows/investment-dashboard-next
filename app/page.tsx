@@ -3,6 +3,7 @@ import AllocationChart from "@/components/chart/AllocationChart";
 import PortfolioChart from "@/components/chart/PortfolioChart";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import StockCard from "@/components/watchlist/StockCard";
 
 export default function Home() {
   return (
@@ -64,7 +65,12 @@ export default function Home() {
                 + Watchlist
               </Button>
             </CardHeader>
-            <CardContent></CardContent>
+            <CardContent className="flex flex-col gap-3">
+              <StockCard />
+              <StockCard />
+              <StockCard />
+              <StockCard />
+            </CardContent>
           </Card>
         </div>
       </div>
