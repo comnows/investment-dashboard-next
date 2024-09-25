@@ -1,6 +1,7 @@
 import OverviewCard from "@/components/card/OverviewCard";
 import AllocationChart from "@/components/chart/AllocationChart";
 import PortfolioChart from "@/components/chart/PortfolioChart";
+import DataTable from "@/components/position/DataTable";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import StockCard from "@/components/watchlist/StockCard";
@@ -36,7 +37,9 @@ export default function Home() {
           <CardHeader>
             <CardTitle className="text-[22px]">Positions</CardTitle>
           </CardHeader>
-          <CardContent></CardContent>
+          <CardContent>
+            <DataTable />
+          </CardContent>
         </Card>
         <Card className="col-start-1 col-end-8 lg:col-end-9">
           <CardHeader className="flex-row justify-between items-center">
