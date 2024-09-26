@@ -2,6 +2,7 @@ import OverviewCard from "@/components/card/OverviewCard";
 import AllocationChart from "@/components/chart/AllocationChart";
 import PortfolioChart from "@/components/chart/PortfolioChart";
 import DataTable from "@/components/position/DataTable";
+import TransactionDataTable from "@/components/transaction/TransactionDataTable";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import StockCard from "@/components/watchlist/StockCard";
@@ -48,7 +49,9 @@ export default function Home() {
               + Transaction
             </Button>
           </CardHeader>
-          <CardContent></CardContent>
+          <CardContent>
+            <TransactionDataTable />
+          </CardContent>
         </Card>
 
         <div className="row-start-2 row-end-10 col-start-8 col-end-13 lg:col-start-9 lg:col-end-13">
