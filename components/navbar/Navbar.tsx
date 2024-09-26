@@ -9,7 +9,7 @@ import {
 
 function Navbar() {
   return (
-    <header className="sticky w-full h-14 top-0 backdrop-blur px-20">
+    <header className="sticky w-full h-14 top-0 backdrop-blur px-20 z-50">
       <div className="flex justify-between items-center h-full">
         <div>
           <Link href={"/"} className="font-bold text-xl">
