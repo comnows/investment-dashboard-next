@@ -19,16 +19,12 @@ import {
 function TransactionDataTable() {
   return (
     <div>
-      <div className="flex items-center">
+      <div className="flex items-center gap-2">
         <Input placeholder="Stock ticker..." />
         <Dialog>
-          <DialogTrigger>
-            <Button
-              variant={"link"}
-              className="hover:!no-underline hover:opacity-70"
-            >
-              All <ArrowDownIcon className="ml-2" />
-            </Button>
+          <DialogTrigger className="flex justify-center items-center hover:opacity-70 p-2">
+            <span className="text-sm">All</span>{" "}
+            <ArrowDownIcon className="ml-2" />
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>Filter transactions by:</DialogHeader>
