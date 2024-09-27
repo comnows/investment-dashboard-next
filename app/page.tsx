@@ -3,6 +3,7 @@ import AllocationChart from "@/components/chart/AllocationChart";
 import PortfolioChart from "@/components/chart/PortfolioChart";
 import DataTable from "@/components/position/DataTable";
 import TransactionDataTable from "@/components/transaction/TransactionDataTable";
+import TransactionDialog from "@/components/transaction/TransactionDialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import StockCard from "@/components/watchlist/StockCard";
@@ -45,9 +46,7 @@ export default function Home() {
         <Card className="col-start-1 col-end-8 lg:col-end-9">
           <CardHeader className="flex-row justify-between items-center">
             <CardTitle className="text-[22px]">Transactions</CardTitle>
-            <Button size={"sm"} className="!m-0">
-              + Transaction
-            </Button>
+            <TransactionDialog />
           </CardHeader>
           <CardContent>
             <TransactionDataTable />
