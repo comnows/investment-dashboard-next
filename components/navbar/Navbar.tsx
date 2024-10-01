@@ -1,11 +1,6 @@
 import Link from "next/link";
-import { Switch } from "../ui/switch";
-import {
-  HomeIcon,
-  MoonIcon,
-  PieChartIcon,
-  SunIcon,
-} from "@radix-ui/react-icons";
+import { HomeIcon, PieChartIcon } from "@radix-ui/react-icons";
+import ThemeSwitch from "./ThemeSwitch";
 
 function Navbar() {
   return (
@@ -25,11 +20,7 @@ function Navbar() {
               <PieChartIcon width={20} height={20} />
             </Link>
           </div>
-          <div className="flex items-center gap-2">
-            <SunIcon />
-            <Switch />
-            <MoonIcon />
-          </div>
+          <ThemeSwitch />
           <div className="size-9 bg-slate-500 rounded-full"></div>
         </div>
       </div>
