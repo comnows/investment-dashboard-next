@@ -4,6 +4,7 @@ import {
   DialogContent,
   DialogFooter,
   DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
 import {
@@ -25,8 +26,10 @@ function TransactionDialog() {
         + Transaction
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader className="text-xl font-bold">
-          Add Transaction
+        <DialogHeader>
+          <DialogTitle className="text-xl font-bold">
+            Add Transaction
+          </DialogTitle>
         </DialogHeader>
         <div>
           <div className="flex flex-col gap-2">

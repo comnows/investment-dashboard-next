@@ -3,6 +3,7 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
 import { Input } from "../ui/input";
@@ -17,7 +18,10 @@ function WatchlistDialog() {
         + Watchlist
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader className="text-xl font-bold">Add Watchlist</DialogHeader>
+        <DialogHeader>
+          <DialogTitle className="text-xl font-bold">Add Watchlist</DialogTitle>
+        </DialogHeader>
+
         <div>
           <Input placeholder="Search" />
           <ScrollArea className="h-[300px] mt-5 p-4">
