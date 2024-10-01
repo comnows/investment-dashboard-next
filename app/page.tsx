@@ -7,6 +7,7 @@ import TransactionDialog from "@/components/transaction/TransactionDialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import StockCard from "@/components/watchlist/StockCard";
+import WatchlistDialog from "@/components/watchlist/WatchlistDialog";
 
 export default function Home() {
   return (
@@ -66,9 +67,7 @@ export default function Home() {
           <Card className="mb-6">
             <CardHeader className="flex-row justify-between items-center">
               <CardTitle className="text-[22px]">Watchlist</CardTitle>
-              <Button size={"sm"} className="!m-0">
-                + Watchlist
-              </Button>
+              <WatchlistDialog />
             </CardHeader>
             <CardContent className="flex flex-col gap-3">
               <StockCard />
