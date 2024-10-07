@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import {
   Form,
   FormControl,
@@ -25,33 +24,36 @@ import { cn } from "@/lib/utils";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
 import { Calendar } from "../ui/calendar";
-
-const TransactionFormSchema = z.object({
-  type: z.enum(["buy", "sell", "dividend"]),
-  ticker: z.string().min(1, "Please provide stock ticker"),
-  price: z.coerce.number().positive(),
-  cost: z.coerce.number().positive(),
-  quantity: z.coerce.number().positive(),
-  date: z.date(),
-});
-
-type TTransactionFormSchema = z.infer<typeof TransactionFormSchema>;
+import { createTransaction } from "./action";
+import { TransactionFormSchema, TTransactionFormSchema } from "@/lib/types";
 
 function TransactionForm() {
   const form = useForm<TTransactionFormSchema>({
     resolver: zodResolver(TransactionFormSchema),
     defaultValues: {
       type: "buy",
-      ticker: undefined,
-      price: undefined,
-      cost: undefined,
-      quantity: undefined,
+      ticker: "",
+      price: "",
+      cost: "",
+      quantity: "",
       date: new Date(),
     },
   });
 
-  const onSubmit = (data: TTransactionFormSchema) => {
+  const onSubmit = async (data: TTransactionFormSchema) => {
+    createTransaction(data);
     console.log(data);
+  };
+
+  const handleNumberInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    onChange: (value: string) => void
+  ) => {
+    const newValue = e.target.value
+      .replace(/[^0-9.]/g, "")
+      .replace(/(\..*)\./g, "$1");
+
+    onChange(newValue);
   };
 
   return (
@@ -102,7 +104,14 @@ function TransactionForm() {
             <FormItem>
               <FormLabel>Stock price</FormLabel>
               <FormControl>
-                <Input type="number" min={0} placeholder="Price" {...field} />
+                <Input
+                  type="text"
+                  placeholder="Price"
+                  {...field}
+                  onChange={(e) => {
+                    handleNumberInputChange(e, field.onChange);
+                  }}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -115,7 +124,14 @@ function TransactionForm() {
             <FormItem>
               <FormLabel>Trading cost</FormLabel>
               <FormControl>
-                <Input type="number" min={0} placeholder="Cost" {...field} />
+                <Input
+                  type="text"
+                  placeholder="Cost"
+                  {...field}
+                  onChange={(e) => {
+                    handleNumberInputChange(e, field.onChange);
+                  }}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -129,10 +145,12 @@ function TransactionForm() {
               <FormLabel>Quantity</FormLabel>
               <FormControl>
                 <Input
-                  type="number"
-                  min={0}
+                  type="text"
                   placeholder="Quantity"
                   {...field}
+                  onChange={(e) => {
+                    handleNumberInputChange(e, field.onChange);
+                  }}
                 />
               </FormControl>
               <FormMessage />
