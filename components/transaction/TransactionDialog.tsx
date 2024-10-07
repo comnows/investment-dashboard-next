@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,8 +11,14 @@ import {
 import TransactionForm from "./TransactionForm";
 
 function TransactionDialog() {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const closeDialog = () => {
+    setIsOpen(false);
+  };
+
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger className="inline-flex justify-center items-center bg-primary text-primary-foreground shadow hover:bg-primary/90 font-medium h-8 rounded-md px-3 text-xs">
         + Transaction
       </DialogTrigger>
@@ -20,7 +28,7 @@ function TransactionDialog() {
             Add Transaction
           </DialogTitle>
         </DialogHeader>
-        <TransactionForm />
+        <TransactionForm onFormSubmit={closeDialog} />
       </DialogContent>
     </Dialog>
   );

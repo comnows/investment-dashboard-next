@@ -27,7 +27,11 @@ import { Calendar } from "../ui/calendar";
 import { createTransaction } from "./action";
 import { TransactionFormSchema, TTransactionFormSchema } from "@/lib/types";
 
-function TransactionForm() {
+type TransactionFormProps = {
+  onFormSubmit: () => void;
+};
+
+function TransactionForm({ onFormSubmit }: TransactionFormProps) {
   const form = useForm<TTransactionFormSchema>({
     resolver: zodResolver(TransactionFormSchema),
     defaultValues: {
@@ -41,8 +45,8 @@ function TransactionForm() {
   });
 
   const onSubmit = async (data: TTransactionFormSchema) => {
-    createTransaction(data);
-    console.log(data);
+    await createTransaction(data);
+    onFormSubmit();
   };
 
   const handleNumberInputChange = (
@@ -196,7 +200,9 @@ function TransactionForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Add Transaction</Button>
+        <Button type="submit" disabled={form.formState.isSubmitting}>
+          Add Transaction
+        </Button>
       </form>
     </Form>
   );

@@ -3,17 +3,13 @@
 import { connectMongoDB } from "@/lib/database";
 import Transaction from "@/lib/models/transaction";
 import { TransactionFormSchema, TTransactionFormSchema } from "@/lib/types";
+import { revalidatePath } from "next/cache";
 
 export async function createTransaction(data: TTransactionFormSchema) {
   const newData = TransactionFormSchema.safeParse(data);
 
-  console.log(newData);
+  await connectMongoDB();
+  await Transaction.create(newData.data);
 
-  // await connectMongoDB();
-
-  // const newTransaction = new Transaction({
-  //     type, ticker, price, cost, quantity, date
-  // })
-
-  // await newTransaction.save()
+  revalidatePath("/");
 }
