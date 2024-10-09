@@ -22,3 +22,12 @@ export const TransactionFormSchema = z.object({
 });
 
 export type TTransactionFormSchema = z.infer<typeof TransactionFormSchema>;
+
+export type Transaction = {
+  type: "buy" | "sell" | "dividend";
+  ticker: string;
+  price: number;
+  cost: number;
+  quantity: number;
+  date: Date;
+};
