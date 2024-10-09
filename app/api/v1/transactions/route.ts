@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     await connectMongoDB();
-    const transactions = await Transaction.find().limit(5);
+    const transactions = await Transaction.find().sort({ date: -1 }).limit(5);
     return NextResponse.json({ transactions }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
