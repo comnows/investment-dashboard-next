@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const TransactionFormSchema = z.object({
   type: z.enum(["buy", "sell", "dividend"]),
-  ticker: z.string().min(1, "Please provide stock ticker"),
+  ticker: z.string().min(1, "Please provide stock ticker").toUpperCase(),
   price: z
     .union([z.coerce.number().positive(), z.string()])
     .refine((value) => Number(value) > 0, {
@@ -30,4 +30,11 @@ export type Transaction = {
   cost: number;
   quantity: number;
   date: Date;
+};
+
+export type Asset = {
+  ticker: string;
+  quantity: number;
+  cost: number;
+  price: number;
 };

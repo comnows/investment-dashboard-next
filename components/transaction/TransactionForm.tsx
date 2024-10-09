@@ -24,8 +24,11 @@ import { cn } from "@/lib/utils";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
 import { Calendar } from "../ui/calendar";
-import { createTransaction } from "./action";
-import { TransactionFormSchema, TTransactionFormSchema } from "@/lib/types";
+import { handleTransactionSubmit } from "./action";
+import {
+  TransactionFormSchema,
+  type TTransactionFormSchema,
+} from "@/lib/types";
 
 type TransactionFormProps = {
   onFormSubmit: () => void;
@@ -45,7 +48,8 @@ function TransactionForm({ onFormSubmit }: TransactionFormProps) {
   });
 
   const onSubmit = async (data: TTransactionFormSchema) => {
-    await createTransaction(data);
+    await handleTransactionSubmit(data);
+
     onFormSubmit();
   };
 
@@ -73,7 +77,12 @@ function TransactionForm({ onFormSubmit }: TransactionFormProps) {
             <FormItem>
               <FormLabel>Transaction type</FormLabel>
               <FormControl>
-                <Select defaultValue="buy" {...field}>
+                <Select
+                  defaultValue="buy"
+                  {...field}
+                  value={field.value}
+                  onValueChange={field.onChange}
+                >
                   <SelectTrigger id="transaction-type">
                     <SelectValue placeholder="Select transaction type" />
                   </SelectTrigger>
