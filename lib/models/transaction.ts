@@ -1,4 +1,4 @@
-import { Model, model, Schema } from "mongoose";
+import { Model, model, models, Schema } from "mongoose";
 import { type Transaction as TTransaction } from "../types";
 
 type transactionModel = Model<TTransaction>;
@@ -31,9 +31,8 @@ const transactionSchema = new Schema<TTransaction, transactionModel>({
   },
 });
 
-const Transaction = model<TTransaction, transactionModel>(
-  "Transaction",
-  transactionSchema
-);
+const Transaction =
+  models.Transaction ||
+  model<TTransaction, transactionModel>("Transaction", transactionSchema);
 
 export default Transaction;
