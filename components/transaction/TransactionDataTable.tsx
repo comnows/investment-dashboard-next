@@ -15,8 +15,49 @@ import {
   DialogHeader,
   DialogTrigger,
 } from "../ui/dialog";
+import { type Transaction } from "@/lib/types";
+import { format } from "date-fns";
+import { HydratedDocument } from "mongoose";
 
-function TransactionDataTable() {
+type fetchData = {
+  transactions: HydratedDocument<Transaction>[];
+};
+
+async function getTransactions() {
+  const response = await fetch("http://localhost:3000/api/v1/transactions");
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return response.json();
+}
+
+function groupMonthYear(data: HydratedDocument<Transaction>[]) {
+  return data.reduce(
+    (acc: Record<string, HydratedDocument<Transaction>[]>, current) => {
+      const monthYear = format(current.date, "MMMM yyyy");
+      if (!acc[monthYear]) {
+        acc[monthYear] = [];
+      }
+      acc[monthYear].push(current);
+      return acc;
+    },
+    {}
+  );
+}
+
+async function TransactionDataTable() {
+  const data: fetchData = await getTransactions();
+
+  const groupedData = groupMonthYear(data.transactions);
+
+  const transactionType = {
+    buy: "Bought",
+    sell: "Sold",
+    dividend: "Received",
+  };
+
   return (
     <div>
       <div className="flex items-center gap-2">
@@ -66,76 +107,38 @@ function TransactionDataTable() {
         </Dialog>
       </div>
       <div>
-        <div className="font-bold my-4">September 2024</div>
-        <div className="flex flex-col gap-4">
-          <div className="flex gap-2">
-            <div className="flex items-center text-sm font-bold">26.09</div>
-            <div className="size-12 bg-slate-500 rounded-full"></div>
-            <div className="flex flex-col justify-center flex-1">
-              <h4 className="font-bold">Nvidia</h4>
-              <p className="text-xs text-gray-500">Bought x0.0455 at $120.23</p>
+        {Object.keys(groupedData).map((monthYear) => (
+          <React.Fragment key={monthYear}>
+            <div className="font-bold my-4">{monthYear}</div>
+            <div className="flex flex-col gap-4">
+              {groupedData[monthYear].map((transaction, index) => (
+                <div key={transaction.ticker + index} className="flex gap-2">
+                  <div className="flex items-center text-sm font-bold">
+                    {format(transaction.date, "dd.MM")}
+                  </div>
+                  <div className="size-12 bg-slate-500 rounded-full"></div>
+                  <div className="flex flex-col justify-center flex-1">
+                    <h4 className="font-bold">{transaction.ticker}</h4>
+                    <p className="text-xs text-gray-500">
+                      {transactionType[transaction.type]} x
+                      {transaction.quantity}{" "}
+                      {transaction.type === "dividend" && "Dividends"} at $
+                      {transaction.price}
+                    </p>
+                  </div>
+                  <div className="text-sm">${transaction.cost}</div>
+                  <Button
+                    variant={"link"}
+                    size={"icon"}
+                    className="group flex items-center"
+                  >
+                    <DotsVerticalIcon className="group-hover:opacity-50" />
+                  </Button>
+                </div>
+              ))}
             </div>
-            <div className="text-sm">$32.15</div>
-            <Button
-              variant={"link"}
-              size={"icon"}
-              className="group flex items-center"
-            >
-              <DotsVerticalIcon className="group-hover:opacity-50" />
-            </Button>
-          </div>
-          <div className="flex gap-2">
-            <div className="flex items-center text-sm font-bold">26.09</div>
-            <div className="size-12 bg-slate-500 rounded-full"></div>
-            <div className="flex flex-col justify-center flex-1">
-              <h4 className="font-bold">Nvidia</h4>
-              <p className="text-xs text-gray-500">Bought x0.0455 at $120.23</p>
-            </div>
-            <div className="text-sm">$32.15</div>
-            <Button
-              variant={"link"}
-              size={"icon"}
-              className="group flex items-center"
-            >
-              <DotsVerticalIcon className="group-hover:opacity-50" />
-            </Button>
-          </div>
-        </div>
-        <div className="font-bold my-4">September 2024</div>
-        <div className="flex flex-col gap-4">
-          <div className="flex gap-2">
-            <div className="flex items-center text-sm font-bold">26.09</div>
-            <div className="size-12 bg-slate-500 rounded-full"></div>
-            <div className="flex flex-col justify-center flex-1">
-              <h4 className="font-bold">Nvidia</h4>
-              <p className="text-xs text-gray-500">Bought x0.0455 at $120.23</p>
-            </div>
-            <div className="text-sm">$32.15</div>
-            <Button
-              variant={"link"}
-              size={"icon"}
-              className="group flex items-center"
-            >
-              <DotsVerticalIcon className="group-hover:opacity-50" />
-            </Button>
-          </div>
-          <div className="flex gap-2">
-            <div className="flex items-center text-sm font-bold">26.09</div>
-            <div className="size-12 bg-slate-500 rounded-full"></div>
-            <div className="flex flex-col justify-center flex-1">
-              <h4 className="font-bold">Nvidia</h4>
-              <p className="text-xs text-gray-500">Bought x0.0455 at $120.23</p>
-            </div>
-            <div className="text-sm">$32.15</div>
-            <Button
-              variant={"link"}
-              size={"icon"}
-              className="group flex items-center"
-            >
-              <DotsVerticalIcon className="group-hover:opacity-50" />
-            </Button>
-          </div>
-        </div>
+          </React.Fragment>
+        ))}
       </div>
     </div>
   );
